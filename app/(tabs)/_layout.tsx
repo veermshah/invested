@@ -3,9 +3,7 @@ import { Redirect, Tabs } from "expo-router";
 import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
-import { Loader } from "../../components";
-import { useGlobalContext } from "../../context/GlobalProvider";
-
+import Loader from "../../components/Loader";
 interface TabIconProps {
     icon: string;
     color: string;
@@ -20,6 +18,7 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                marginTop: 20,
                 gap: 2,
             }}
         >
@@ -27,7 +26,7 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
                 source={icon}
                 resizeMode="contain"
                 tintColor={color}
-                style={{ width: 6, height: 6 }}
+                style={{ width: 20, height: 20 }}
             />
             <Text
                 style={{ color: color }}
@@ -42,10 +41,6 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, color, name, focused }) => {
 };
 
 const TabLayout: React.FC = () => {
-    const { loading, isLogged } = useGlobalContext();
-
-    if (!loading && !isLogged) return <Redirect href="/sign-in" />;
-
     return (
         <>
             <Tabs
@@ -85,7 +80,7 @@ const TabLayout: React.FC = () => {
                             <TabIcon
                                 icon={icons.bookmark}
                                 color={color}
-                                name="Bookmark"
+                                name="Stocks"
                                 focused={focused}
                             />
                         ),
@@ -99,9 +94,9 @@ const TabLayout: React.FC = () => {
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
-                                icon={icons.plus}
+                                icon={icons.profile}
                                 color={color}
-                                name="Create"
+                                name="Profile"
                                 focused={focused}
                             />
                         ),
@@ -109,7 +104,6 @@ const TabLayout: React.FC = () => {
                 />
             </Tabs>
 
-            <Loader isLoading={loading} />
             <StatusBar backgroundColor="#161622" style="light" />
         </>
     );

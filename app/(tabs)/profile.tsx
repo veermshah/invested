@@ -3,8 +3,8 @@ import React from "react";
 
 const profile = () => {
     return (
-        <View className="flex-1 items-center justify-center bg-white">
-            <Text className="text-accent">profile</Text>
+        <View className="flex-1 items-center justify-center">
+            <Text className="text-white">profile</Text>
         </View>
     );
 };
