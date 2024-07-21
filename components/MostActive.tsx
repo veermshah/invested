@@ -50,7 +50,7 @@ const MostActive: React.FC<MostActiveProps> = ({ stockData, index }) => {
             : "text-red-500";
 
     return (
-        <View className="bg-gray-800 px-2 py-2 w-full border-b border-gray-600">
+        <View className="bg-gray-900 px-2 py-2 w-full border-b border-gray-600">
             <View className="flex flex-row gap-3">
                 <Text className="text-xl text-white font-bold">
                     {topGainer.ticker}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 
 interface TopGainersProps {
     stockData: {
@@ -15,7 +15,7 @@ interface TopGainersProps {
 }
 
 // Function to format numbers with K and M suffixes
-const formatNumber = (num) => {
+const formatNumber = (num: number | null) => {
     if (num == null) {
         // Handle undefined or null values
         return "N/A"; // You can return a default value or an empty string
@@ -37,7 +37,7 @@ const TopGainers: React.FC<TopGainersProps> = ({ stockData, index }) => {
     if (!stockData || !stockData.top_gainers) {
         return <Text>No data available</Text>; // Error handling if stockData is null or missing top_gainers
     }
-    
+
     const topGainer = stockData.top_gainers[index];
 
     if (!topGainer) {
@@ -45,26 +45,40 @@ const TopGainers: React.FC<TopGainersProps> = ({ stockData, index }) => {
     }
 
     return (
-        <View className="bg-gray-900 px-4 py-2 w-full border-b border-gray-600">
-            <View className="flex flex-row gap-3">
-                <Text className="text-xl text-white font-bold">
-                    {topGainer.ticker}
-                </Text>
-                <Text className="text-xl text-green-300 font-bold">
-                    +{topGainer.change_percentage}
-                </Text>
-            </View>
-            <View className="flex flex-row gap-3">
-                <Text className="text-lg text-white font-semibold">
-                    {topGainer.price}
-                    <Text className="text-md text-gray-400">
-                        {" "}
-                        + {topGainer.change_amount}
+        <View className="bg-gray-900 px-4 py-2 w-full border-b border-gray-600 flex flex-row items-center justify-between">
+            <View>
+                <View className="flex flex-row gap-3">
+                    <Text className="text-xl text-white font-bold">
+                        {topGainer.ticker}
                     </Text>
-                </Text>
-                <Text className="text-lg text-white font-semibold">
-                    VOL: {formatNumber(topGainer.volume)}
-                </Text>
+                    <Text className="text-xl text-green-300 font-bold">
+                        +{topGainer.change_percentage}
+                    </Text>
+                </View>
+                <View className="flex flex-row gap-3">
+                    <Text className="text-lg text-white font-semibold">
+                        {topGainer.price}
+                        <Text className="text-md text-gray-400">
+                            {" "}
+                            + {topGainer.change_amount}
+                        </Text>
+                    </Text>
+                    <Text className="text-lg text-white font-semibold">
+                        VOL: {formatNumber(topGainer.volume)}
+                    </Text>
+                </View>
+            </View>
+            <View className="flex flex-row items-center">
+                <Image
+                    source={require("../assets/icons/newspaper.png")}
+                    className="h-6 w-6 mr-8"
+                    resizeMode="cover"
+                />
+                <Image
+                    source={require("../assets/icons/info.png")}
+                    className="h-8 w-8"
+                    resizeMode="cover"
+                />
             </View>
         </View>
     );
