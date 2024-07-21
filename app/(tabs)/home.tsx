@@ -8,7 +8,7 @@ import TopLosers from "@/components/TopLosers";
 import MostActive from "@/components/MostActive";
 
 const API_KEY = "demo";
-// const API_KEY = "YMMDG61FF0VTDB0D";
+// const API_KEY = "T04ILKFBYYCSQB8Z";
 const URL = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${API_KEY}`;
 
 // Function to format numbers with K and M suffixes
@@ -47,6 +47,7 @@ export default function App() {
             })
             .then((data) => {
                 setStockData(data);
+                console.log("StockData:", data);
             })
             .catch((error) => {
                 console.error("Error:", error);

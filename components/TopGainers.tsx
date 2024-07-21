@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
 interface TopGainersProps {
     stockData: {
@@ -38,6 +39,16 @@ const TopGainers: React.FC<TopGainersProps> = ({ stockData, index }) => {
         return <Text>No data available</Text>; // Error handling if stockData is null or missing top_gainers
     }
 
+    const router = useRouter();
+
+    const handlePress = () => {
+        console.log(
+            "Pressed on top gainer: /info?ticker=" +
+                stockData.top_gainers[index].ticker
+        );
+        router.push(`/info?ticker=${stockData.top_gainers[index].ticker}`);
+    };
+
     const topGainer = stockData.top_gainers[index];
 
     if (!topGainer) {
@@ -69,16 +80,21 @@ const TopGainers: React.FC<TopGainersProps> = ({ stockData, index }) => {
                 </View>
             </View>
             <View className="flex flex-row items-center">
-                <Image
-                    source={require("../assets/icons/newspaper.png")}
-                    className="h-6 w-6 mr-8"
-                    resizeMode="cover"
-                />
-                <Image
-                    source={require("../assets/icons/info.png")}
-                    className="h-8 w-8"
-                    resizeMode="cover"
-                />
+                <TouchableOpacity>
+                    <Image
+                        source={require("../assets/icons/newspaper.png")}
+                        className="h-6 w-6 mr-8"
+                        resizeMode="cover"
+                    />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handlePress}>
+                    <Image
+                        source={require("../assets/icons/info.png")}
+                        className="h-8 w-8"
+                        resizeMode="cover"
+                    />
+                </TouchableOpacity>
             </View>
         </View>
     );
