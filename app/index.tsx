@@ -1,15 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Link, Stack } from "expo-router";
+import { useRootNavigationState, Redirect } from "expo-router";
 
-const index = () => {
-    return (
-        <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-    );
-};
+export default function InitalRouting() {
+    const rootNavigationState = useRootNavigationState();
 
-export default index;
+    if (!rootNavigationState?.key) return null;
 
-const styles = StyleSheet.create({});
+    return <Redirect href={"/(tabs)/home"} />;
+}

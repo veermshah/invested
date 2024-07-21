@@ -3,10 +3,32 @@ import { ScrollView, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
+import TopGainers from "@/components/TopGainers";
+import TopLosers from "@/components/TopLosers";
+import MostActive from "@/components/MostActive";
 
 const API_KEY = "demo";
 // const API_KEY = "YMMDG61FF0VTDB0D";
 const URL = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${API_KEY}`;
+
+// Function to format numbers with K and M suffixes
+const formatNumber = (num) => {
+    if (num == null) {
+        // Handle undefined or null values
+        return "N/A"; // You can return a default value or an empty string
+    }
+
+    if (num >= 1000000) {
+        // Round to the nearest integer and append 'M'
+        return `${Math.round(num / 1000000)}M`;
+    } else if (num >= 1000) {
+        // Round to the nearest integer and append 'K'
+        return `${Math.round(num / 1000)}K`;
+    } else {
+        // Return the number as-is
+        return num.toString();
+    }
+};
 
 export default function App() {
     const [stockData, setStockData] = useState(null);
@@ -25,7 +47,6 @@ export default function App() {
             })
             .then((data) => {
                 setStockData(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -33,65 +54,36 @@ export default function App() {
     }, []);
 
     return (
-        <SafeAreaView>
-            <ScrollView contentContainerStyle={{ height: "100%" }}>
-                <View className="mt-5">
-                    <Text className="ml-5 mb-3 text-2xl text-white font-pbold">
-                        Top Gainers
-                    </Text>
-                    <View className="bg-gray-800 px-2 py-2 w-full border-b border-gray-600">
-                        <View className="flex flex-row gap-3">
-                            <Text className="text-xl text-white font-bold">
-                                {stockData?.top_gainers[0].ticker}
-                            </Text>
-                            <Text className="text-xl text-green-300 font-bold">
-                                +{stockData?.top_gainers[0].change_percentage}
-                            </Text>
-                        </View>
-                        <View className="flex flex-row gap-3">
-                            <Text className="text-lg text-white font-semibold">
-                                {stockData?.top_gainers[0].price}
-                                <Text className="text-md text-gray-400">
-                                    {" "}
-                                    + {stockData?.top_gainers[0].change_amount}
-                                </Text>
-                            </Text>
-                            <Text className="text-lg text-white font-semibold">
-                                VOL: {stockData?.top_gainers[0].volume}
-                            </Text>
-                        </View>
-                    </View>
-                    <View className="bg-gray-800 px-2 py-2 w-full border-b border-gray-600">
-                        <View className="flex flex-row gap-3">
-                            <Text className="text-xl text-white font-bold">
-                                {stockData?.top_gainers[1].ticker}
-                            </Text>
-                            <Text className="text-xl text-green-300 font-bold">
-                                +{stockData?.top_gainers[1].change_percentage}
-                            </Text>
-                        </View>
-                        <View className="flex flex-row gap-3">
-                            <Text className="text-lg text-white font-semibold">
-                                {stockData?.top_gainers[1].price}
-                                <Text className="text-md text-gray-400">
-                                    {" "}
-                                    + {stockData?.top_gainers[1].change_amount}
-                                </Text>
-                            </Text>
-                            <Text className="text-lg text-white font-semibold">
-                                VOL: {stockData?.top_gainers[1].volume}
-                            </Text>
-                        </View>
-                    </View>
-                    
-                    <Text className="text-2xl text-white font-pbold">
-                        Top Losers
-                    </Text>
-                    <Text className="text-2xl text-white font-pbold">
-                        Most Traded (USA)
-                    </Text>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView>
+            <View className="mt-10">
+                <Text className="mt-5 ml-5 mb-3 text-2xl text-white font-pbold">
+                    Top Gainers
+                </Text>
+
+                <TopGainers stockData={stockData} index={0} />
+                <TopGainers stockData={stockData} index={1} />
+                <TopGainers stockData={stockData} index={2} />
+                <TopGainers stockData={stockData} index={3} />
+                <TopGainers stockData={stockData} index={4} />
+
+                <Text className="mt-5 ml-5 mb-3 text-2xl text-white font-pbold">
+                    Top Losers
+                </Text>
+                <TopLosers stockData={stockData} index={0} />
+                <TopLosers stockData={stockData} index={1} />
+                <TopLosers stockData={stockData} index={2} />
+                <TopLosers stockData={stockData} index={3} />
+                <TopLosers stockData={stockData} index={4} />
+
+                <Text className="mt-5 ml-5 mb-3 text-2xl text-white font-pbold">
+                    Most Traded (USA)
+                </Text>
+                <MostActive stockData={stockData} index={0} />
+                <MostActive stockData={stockData} index={1} />
+                <MostActive stockData={stockData} index={2} />
+                <MostActive stockData={stockData} index={3} />
+                <MostActive stockData={stockData} index={4} />
+            </View>
+        </ScrollView>
     );
 }

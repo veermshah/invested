@@ -3,8 +3,8 @@ import React from 'react'
 
 const stocks = () => {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text className='text-white'>stocks</Text>
+    <View>
+      <Text>stocks</Text>
     </View>
   )
 }

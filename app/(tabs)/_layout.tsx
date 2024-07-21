@@ -50,7 +50,7 @@ const TabLayout: React.FC = () => {
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         backgroundColor: "#161622",
-                        borderTopWidth: 1,
+                        borderTopWidth: 0,
                         borderTopColor: "#232533",
                         height: 84,
                     },
@@ -66,6 +66,21 @@ const TabLayout: React.FC = () => {
                                 icon={icons.home}
                                 color={color}
                                 name="Home"
+                                focused={focused}
+                            />
+                        ),
+                    }}
+                />
+                <Tabs.Screen
+                    name="news"
+                    options={{
+                        title: "News",
+                        headerShown: false,
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.newspaper}
+                                color={color}
+                                name="News"
                                 focused={focused}
                             />
                         ),
@@ -103,8 +118,6 @@ const TabLayout: React.FC = () => {
                     }}
                 />
             </Tabs>
-
-            <StatusBar backgroundColor="#161622" style="light" />
         </>
     );
 };
