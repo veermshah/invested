@@ -164,7 +164,7 @@ const info = () => {
                     <Text className="text-white">Loading...</Text>
                 )}
             </View>
-            <View className="my-10 flex items-center">
+            <View className="my-10 mb-24 flex items-center">
             <TradingViewWidget />
             </View>
         </ScrollView>
